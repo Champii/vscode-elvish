@@ -15,6 +15,9 @@
       "include": "#doubleQuoteString"
     },
     {
+      "include": "#use"
+    },
+    {
       "include": "#builtinFunctions"
     },
     {
@@ -37,6 +40,51 @@
     },
     {
       "include": "#elvishVariable"
+    },
+    {
+      "include": "#elvishNumber"
+    },
+    {
+      "include": "#assignation"
+    },
+    {
+      "include": "#namespace"
+    },
+    {
+      "include": "#flag"
+    },
+    {
+      "include": "#other"
+    },
+    {
+      "match": "(\\[)([\\w|\\s|~]+)(\\])",
+      "captures": {
+        "1": {
+          "name": "comment"
+        },
+        "2": {
+          "name": "variable.parameter.elvish"
+        },
+        "3": {
+          "name": "comment"
+        }
+      }
+    },
+    {
+      "name": "token.info-token",
+      "match": "(\\(|\\))"
+    },
+    {
+      "name": "constant.numeric",
+      "match": "(\\{|\\})"
+    },
+    {
+      "name": "markup.changed",
+      "match": "(\\d)"
+    },
+    {
+      "name": "keyword",
+      "match": "@"
     }
   ],
   "repository": {
@@ -45,10 +93,10 @@
       "match": "(&)(\\S*)(=)(w*)",
       "captures": {
         "1": {
-          "name": "keyword.operator.elvish"
+          "name": "constant.other.elvish"
         },
         "2": {
-          "name": "variable.parameter.elvish"
+          "name": "entity.name.function.elvish"
         },
         "3": {
           "name": "keyword.operator.elvish"
@@ -61,7 +109,7 @@
     },
     "builtinFunctions": {
       "comment": "Elvish Builtin Functions - Compound expressions *must* be placed first!",
-      "match": "[^\\/-]\\b((not-eq|all|assoc|bool|cd|constantly|count|dissoc|drop|each|eawk|echo|eq|exec|exit|explode|external|fail|fclose|fopen|from-json|has-external|has-prefix|has-suffix|is|joins|keys|kind-of|nop|not|ord|path-abs|path-base|path-clean|path-dir|path-ext|peach|pipe|prclose|put|pprint|print|pwclose|range|rand|randint|repeat|replaces|repr|resolve|run-parallel|search-external|slurp|splits|src|take|tilde-abbr|to-json|to-string|wcswidth))\\b ",
+      "match": "\\b(not-eq|all|assoc|bool|cd|constantly|count|dissoc|drop|each|eawk|echo|eq|exec|exit|explode|external|fail|fclose|fopen|from-json|has-external|has-prefix|has-suffix|is|joins|keys|kind-of|nop|not|ord|path-abs|path-base|path-clean|path-dir|path-ext|peach|pipe|prclose|put|pprint|print|pwclose|range|rand|randint|repeat|replaces|repr|resolve|run-parallel|search-external|slurp|splits|src|take|tilde-abbr|to-json|to-string|wcswidth) ",
       "captures": {
         "1": {
           "name": "support.function.elvish"
@@ -85,8 +133,35 @@
       "comment": "Elvish math & boolean operators",
       "match": "(\\s|\\()((\\+ |\\- |\\* |\\/ |\\% |\\^|\\<\\=?s?|\\>\\=?s?|\\=\\=s?|\\!\\=s?))",
       "captures": {
+        "1": {
+          "name": "token.info-token"
+        },
         "2": {
           "name": "keyword.operator.elvish"
+        }
+      }
+    },
+    "assignation": {
+      "comment": "Assignation declaration",
+      "match": "(\\w+)\\s?(=)\\s?",
+      "captures": {
+        "1": {
+          "name": "token.info-token"
+        },
+        "2": {
+          "name": "comment"
+        }
+      }
+    },
+    "namespace": {
+      "comment": "Namespace",
+      "match": "(\\w+)(:)",
+      "captures": {
+        "1": {
+          "name": "token.info-token"
+        },
+        "2": {
+          "name": "keyword"
         }
       }
     },
@@ -119,17 +194,32 @@
       "begin": "(fn) (\\S*)",
       "beginCaptures": {
         "1": {
-          "name": "support.function.elvish"
+          "name": "markup.quote"
         },
         "2": {
-          "name": "entity.function.name.elvish"
+          "name": "entity.name.function.elvish"
         }
       },
-      "end": "\\{",
+      "end": "(\\{)",
+      "endCaptures": {
+        "1": {
+          "name": "constant.numeric"
+        }
+      },
       "patterns": [
         {
-          "begin": "\\[",
-          "end": "\\]",
+          "begin": "(\\[)",
+          "beginCaptures": {
+            "1": {
+              "name": "comment"
+            }
+          },
+          "end": "(\\])",
+          "endCaptures": {
+            "1": {
+              "name": "comment"
+            }
+          },
           "patterns": [
             {
               "include": "#map"
@@ -154,8 +244,45 @@
       ]
     },
     "elvishVariable": {
-      "name": "variable.other.elvish",
-      "match": "\\$*E:\\w*\\b"
+      "match": "(\\$)((\\w|:)+)",
+      "captures": {
+        "1": {
+          "name": "keyword"
+        },
+        "2": {
+          "name": "constant.other.elvish"
+        }
+      }
+    },
+    "use": {
+      "match": "^(use)\\s+(.*)$",
+      "captures": {
+        "1": {
+          "name": "keyword"
+        },
+        "2": {
+          "name": "variable.parameter"
+        }
+      }
+    },
+    "flag": {
+      "match": "(--?)([a-zA-Z_-]+)",
+      "captures": {
+        "1": {
+          "name": "storage"
+        },
+        "2": {
+          "name": "variable.parameter"
+        }
+      }
+    },
+    "other": {
+      "match": "([a-zA-Z_-]+)",
+      "captures": {
+        "1": {
+          "name": "comment"
+        }
+      }
     }
   }
 }

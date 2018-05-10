@@ -1,6 +1,6 @@
 # Elvish grammar for VSCode
 
-VSCode version of [language-elvish](https://github.com/iwoloschin/language-elvish) for Atom
+VSCode syntax inspired from [language-elvish](https://github.com/iwoloschin/language-elvish) for Atom
 
 Only includes grammar for syntaxic coloration.
 

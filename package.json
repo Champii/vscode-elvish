@@ -3,7 +3,7 @@
   "displayName": "Elvish Syntax Highlighting",
   "description": "Elvish Shell language support",
   "version": "0.0.1",
-  "publisher": "Champii",
+  "publisher": "champii",
   "engines": {
     "vscode": "^1.23.0"
   },
