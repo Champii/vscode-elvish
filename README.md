@@ -17,3 +17,9 @@ May include in the futur:
 ### 1.0.0
 
 Initial release of Elvish for VSCode
+
+### TODO
+
+ - Support for map assignation like `foo[bar] = 0`
+ - Add color for namespaced variable like `$E:FOO`
+ - Fix paths that are not well formed

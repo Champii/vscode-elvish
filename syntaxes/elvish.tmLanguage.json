@@ -15,6 +15,9 @@
       "include": "#doubleQuoteString"
     },
     {
+      "include": "#source"
+    },
+    {
       "include": "#use"
     },
     {
@@ -34,6 +37,9 @@
     },
     {
       "include": "#mathFunctions"
+    },
+    {
+      "include": "#path"
     },
     {
       "include": "#map"
@@ -63,12 +69,16 @@
           "name": "comment"
         },
         "2": {
-          "name": "variable.parameter.elvish"
+          "name": "token.info-token"
         },
         "3": {
           "name": "comment"
         }
       }
+    },
+    {
+      "name": "keyword",
+      "match": "(=|\\.|\\||>|<|(&(-|\\d)))"
     },
     {
       "name": "token.info-token",
@@ -149,7 +159,7 @@
           "name": "token.info-token"
         },
         "2": {
-          "name": "comment"
+          "name": "keyword"
         }
       }
     },
@@ -168,6 +178,10 @@
     "lineComment": {
       "name": "comment.line.number-sign.elvish",
       "match": "#.*$"
+    },
+    "source": {
+      "name": "keyword",
+      "match": "^(-source)\\s+"
     },
     "singleQuoteString": {
       "name": "string.quoted.single.elvish",
@@ -235,7 +249,7 @@
               "match": "(@?[\\w-]*) ?",
               "captures": {
                 "1": {
-                  "name": "variable.parameter.elvish"
+                  "name": "token.info-token"
                 }
               }
             }
@@ -244,13 +258,16 @@
       ]
     },
     "elvishVariable": {
-      "match": "(\\$)((\\w|:)+)",
+      "match": "(\\$)(@?)((\\w|-|~|:)+)",
       "captures": {
         "1": {
           "name": "keyword"
         },
         "2": {
-          "name": "constant.other.elvish"
+          "name": "variable.parameter"
+        },
+        "3": {
+          "name": "constant.numeric"
         }
       }
     },
@@ -261,7 +278,7 @@
           "name": "keyword"
         },
         "2": {
-          "name": "variable.parameter"
+          "name": "comment"
         }
       }
     },
@@ -272,15 +289,26 @@
           "name": "storage"
         },
         "2": {
-          "name": "variable.parameter"
+          "name": "comment"
+        }
+      }
+    },
+    "path": {
+      "match": "(/)((\\w|\\.|-)+)",
+      "captures": {
+        "1": {
+          "name": "entity.name.function.elvish"
+        },
+        "2": {
+          "name": "comment"
         }
       }
     },
     "other": {
-      "match": "([a-zA-Z_-]+)",
+      "match": "(\\w[a-zA-Z0-9_-]*)",
       "captures": {
         "1": {
-          "name": "comment"
+          "name": "variable.parameter"
         }
       }
     }
