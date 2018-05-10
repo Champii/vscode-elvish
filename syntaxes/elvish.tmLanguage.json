@@ -1,0 +1,161 @@
+{
+  "scopeName": "source.elvish",
+  "name": "Shell Script (Elvish)",
+  "fileTypes": [
+    "elv"
+  ],
+  "patterns": [
+    {
+      "include": "#lineComment"
+    },
+    {
+      "include": "#singleQuoteString"
+    },
+    {
+      "include": "#doubleQuoteString"
+    },
+    {
+      "include": "#builtinFunctions"
+    },
+    {
+      "include": "#builtinExtras"
+    },
+    {
+      "include": "#builtinFlowControl"
+    },
+    {
+      "include": "#builtinVariables"
+    },
+    {
+      "include": "#functionDefinition"
+    },
+    {
+      "include": "#mathFunctions"
+    },
+    {
+      "include": "#map"
+    },
+    {
+      "include": "#elvishVariable"
+    }
+  ],
+  "repository": {
+    "map": {
+      "comment": "Elvish Map Keyword Highlighting",
+      "match": "(&)(\\S*)(=)(w*)",
+      "captures": {
+        "1": {
+          "name": "keyword.operator.elvish"
+        },
+        "2": {
+          "name": "variable.parameter.elvish"
+        },
+        "3": {
+          "name": "keyword.operator.elvish"
+        }
+      }
+    },
+    "builtinVariables": {
+      "name": "constant.language.elvish",
+      "match": "(\\$_|\\$args|\\$false|\\$ok|\\$value-out-indicator|\\$paths|\\$pid|\\$pwd|\\$true)"
+    },
+    "builtinFunctions": {
+      "comment": "Elvish Builtin Functions - Compound expressions *must* be placed first!",
+      "match": "[^\\/-]\\b((not-eq|all|assoc|bool|cd|constantly|count|dissoc|drop|each|eawk|echo|eq|exec|exit|explode|external|fail|fclose|fopen|from-json|has-external|has-prefix|has-suffix|is|joins|keys|kind-of|nop|not|ord|path-abs|path-base|path-clean|path-dir|path-ext|peach|pipe|prclose|put|pprint|print|pwclose|range|rand|randint|repeat|replaces|repr|resolve|run-parallel|search-external|slurp|splits|src|take|tilde-abbr|to-json|to-string|wcswidth))\\b ",
+      "captures": {
+        "1": {
+          "name": "support.function.elvish"
+        }
+      }
+    },
+    "builtinExtras": {
+      "comment": "Elvish commands not included in builtins",
+      "name": "support.function.elvish",
+      "match": "\\b(del|use)\\b"
+    },
+    "builtinFlowControl": {
+      "match": "\\b((if|elif|else|while|for|try|except|finally|nop|return))\\b\\s+",
+      "captures": {
+        "1": {
+          "name": "keyword.control.elvish"
+        }
+      }
+    },
+    "mathFunctions": {
+      "comment": "Elvish math & boolean operators",
+      "match": "(\\s|\\()((\\+ |\\- |\\* |\\/ |\\% |\\^|\\<\\=?s?|\\>\\=?s?|\\=\\=s?|\\!\\=s?))",
+      "captures": {
+        "2": {
+          "name": "keyword.operator.elvish"
+        }
+      }
+    },
+    "lineComment": {
+      "name": "comment.line.number-sign.elvish",
+      "match": "#.*$"
+    },
+    "singleQuoteString": {
+      "name": "string.quoted.single.elvish",
+      "begin": "'",
+      "end": "'"
+    },
+    "doubleQuoteString": {
+      "name": "string.quoted.double.elvish",
+      "begin": "\"",
+      "end": "\"",
+      "patterns": [
+        {
+          "name": "invalid.illegal.elvish",
+          "match": "\\\\\\*"
+        },
+        {
+          "name": "constant.character.escape.elvish",
+          "match": "\\\\\\w"
+        }
+      ]
+    },
+    "functionDefinition": {
+      "comment": "Elvish function declaration",
+      "begin": "(fn) (\\S*)",
+      "beginCaptures": {
+        "1": {
+          "name": "support.function.elvish"
+        },
+        "2": {
+          "name": "entity.function.name.elvish"
+        }
+      },
+      "end": "\\{",
+      "patterns": [
+        {
+          "begin": "\\[",
+          "end": "\\]",
+          "patterns": [
+            {
+              "include": "#map"
+            },
+            {
+              "include": "#builtinVariables"
+            },
+            {
+              "match": "&",
+              "name": "variable.parameter.elvish"
+            },
+            {
+              "match": "(@?[\\w-]*) ?",
+              "captures": {
+                "1": {
+                  "name": "variable.parameter.elvish"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "elvishVariable": {
+      "name": "variable.other.elvish",
+      "match": "\\$*E:\\w*\\b"
+    }
+  }
+}

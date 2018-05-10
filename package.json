@@ -1,0 +1,45 @@
+{
+  "name": "elvish",
+  "displayName": "elvish",
+  "description": "elvish shell language support",
+  "version": "0.0.1",
+  "publisher": "Champii",
+  "engines": {
+    "vscode": "^1.23.0"
+  },
+  "categories": [
+    "Languages",
+    "Themes"
+  ],
+  "contributes": {
+    "themes": [
+      {
+          "label": "elvish",
+          "uiTheme": "vs-dark",
+          "path": "./themes/elvish-color-theme.json"
+      }
+    ],
+    "languages": [
+      {
+        "id": "elvish",
+        "aliases": [
+          "elvish",
+          "elvish"
+        ],
+        "extensions": [
+          ".elv"
+        ],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "elvish",
+        "scopeName": "source.elvish",
+        "path": "./syntaxes/elvish.tmLanguage.json"
+      }
+    ]
+  },
+  "dependencies": {
+  }
+}
