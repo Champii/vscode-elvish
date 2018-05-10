@@ -1,29 +1,30 @@
 {
-  "name": "elvish",
-  "displayName": "elvish",
-  "description": "elvish shell language support",
+  "name": "language-elvish",
+  "displayName": "Elvish Syntax Highlighting",
+  "description": "Elvish Shell language support",
   "version": "0.0.1",
   "publisher": "Champii",
   "engines": {
     "vscode": "^1.23.0"
   },
+  "icon": "images/logo.png",
+  "galleryBanner": {
+		"color": "#293845",
+		"theme": "dark"
+	},
+  "repository": {
+		"type": "git",
+		"url": "https://github.com/Champii/vscode-elvish.git"
+	},
   "categories": [
-    "Languages",
-    "Themes"
+    "Languages"
   ],
   "contributes": {
-    "themes": [
-      {
-          "label": "elvish",
-          "uiTheme": "vs-dark",
-          "path": "./themes/elvish-color-theme.json"
-      }
-    ],
     "languages": [
       {
         "id": "elvish",
         "aliases": [
-          "elvish",
+          "Elvish",
           "elvish"
         ],
         "extensions": [
@@ -39,7 +40,5 @@
         "path": "./syntaxes/elvish.tmLanguage.json"
       }
     ]
-  },
-  "dependencies": {
   }
 }
